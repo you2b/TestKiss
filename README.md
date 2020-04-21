@@ -47,7 +47,7 @@
 > 1. 添加产品分类，需要填写名称和分类
 ![添加产品分类](https://github.com/you2b/TestKiss/blob/master/SamplePicture/%E6%B7%BB%E5%8A%A0%E4%BA%A7%E5%93%81%E5%88%86%E7%B1%BB.png)
 
-###3 2.5 产品分类列表
+### 2.5 产品分类列表
 > 1. 倒序展示产品分类，翻页展示第1页
 
 #### 2.6 删除分类
