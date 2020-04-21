@@ -67,6 +67,7 @@
 > 6. 拖拽可以对模块和用例进行排序
 
 #### 3.2添加用例
+> 0.先要选择一个产品
 ![编辑前需要先选择项目](https://github.com/you2b/TestKiss/blob/master/SamplePicture/%E7%BC%96%E5%86%99%E7%94%A8%E4%BE%8B-%E9%80%89%E6%8B%A9%E9%A1%B9%E7%9B%AE.png)
 > 1.添加用例前，需要选中【叶子模块】#只有叶子节点可以添加用例
 > 2. 如果没有产品模块可以先添加模块；#有parent/child/leaf 三种类型模块
