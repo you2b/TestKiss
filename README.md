@@ -26,6 +26,7 @@
 #### 1.1 登录
 > 1.本系统为独立的用例管理系统，没有接入LDAP, 需要先注册账号
 > 2.登录使用注册的用户名和密码登录
+![登录](https://github.com/you2b/TestKiss/blob/master/SamplePicture/%E7%99%BB%E5%BD%95.jpeg)
 
 #### 1.2 注册
 > 1. 注册用户名和邮箱需要唯一
