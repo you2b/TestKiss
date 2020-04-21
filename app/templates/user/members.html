@@ -1,0 +1,127 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}
+上传头像
+{% endblock %}
+
+{% block css %}
+    {% include 'user/common/avator.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+<div class="">
+<div class="clearfix"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_content">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+            <ul class="pagination pagination-split">
+              <li><a href="{{ url_for('user.members', search="A") }}">A</a></li>
+              <li><a href="{{ url_for('user.members', search="B") }}">B</a></li>
+              <li><a href="{{ url_for('user.members', search="C") }}">C</a></li>
+              <li><a href="{{ url_for('user.members', search="D") }}">D</a></li>
+              <li><a href="{{ url_for('user.members', search="E") }}">E</a></li>
+              <li><a href="{{ url_for('user.members', search="F") }}">F</a></li>
+              <li><a href="{{ url_for('user.members', search="G") }}">G</a></li>
+              <li><a href="{{ url_for('user.members', search="H") }}">H</a></li>
+              <li><a href="{{ url_for('user.members', search="I") }}">I</a></li>
+              <li><a href="{{ url_for('user.members', search="J") }}">J</a></li>
+              <li><a href="{{ url_for('user.members', search="K") }}">K</a></li>
+              <li><a href="{{ url_for('user.members', search="L") }}">L</a></li>
+              <li><a href="{{ url_for('user.members', search="M") }}">M</a></li>
+              <li><a href="{{ url_for('user.members', search="N") }}">N</a></li>
+              <li><a href="{{ url_for('user.members', search="O") }}">O</a></li>
+              <li><a href="{{ url_for('user.members', search="P") }}">P</a></li>
+              <li><a href="{{ url_for('user.members', search="Q") }}">Q</a></li>
+              <li><a href="{{ url_for('user.members', search="R") }}">R</a></li>
+              <li><a href="{{ url_for('user.members', search="S") }}">S</a></li>
+              <li><a href="{{ url_for('user.members', search="T") }}">T</a></li>
+              <li><a href="{{ url_for('user.members', search="U") }}">U</a></li>
+              <li><a href="{{ url_for('user.members', search="V") }}">V</a></li>
+              <li><a href="{{ url_for('user.members', search="W") }}">W</a></li>
+              <li><a href="{{ url_for('user.members', search="X") }}">X</a></li>
+              <li><a href="{{ url_for('user.members', search="Y") }}">Y</a></li>
+              <li><a href="{{ url_for('user.members', search="Z") }}">Z</a></li>
+            </ul>
+          </div>
+
+          <div class="clearfix"></div>
+            {% for member in members['data'] %}
+          <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+            <div class="well profile_view">
+              <div class="col-sm-12">
+                <h4 class="brief"><i><strong>技能: </strong>{% if 'skills' in member['info'] %} {% for skill in member['info']['skills'] %} {{ skill['sk'] }} /{% endfor %} {% endif %}</i></h4>
+                <div class="left col-xs-7">
+                  <h2>{{ member['username'] }}</h2>
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-phone"></i> 电话:{% if 'phone' in member['info'] %} {{ member['info']['phone'] }} {% endif %}</li>
+                    <li><i class="fa fa-envelope-o"></i> 邮箱: {% if 'email' in member['info'] %} {{ member['info']['email'] }}{% endif %}</li>
+                    <li><i class="fa fa-map-marker"></i> 地址: {% if 'addr' in member['info'] %} {{ member['info']['addr'] }}{% endif %}</li>
+                    <li><i class="fa fa-tags"></i> {% if 'favor' in member['info'] %} {{ member['info']['favor'] }}{% endif %}</li>
+                  </ul>
+                </div>
+                <div class="right col-xs-5 text-center">
+                  <img src="{{ member.info['avator'] }}" alt="" class="img-circle img-responsive">
+                </div>
+              </div>
+              <div class="col-xs-12 bottom text-center">
+                <div class="col-xs-12 col-sm-6 emphasis">
+                  <p class="ratings">
+                    <a>3.5</a>
+                    <a href="#"><span class="fa fa-star red"></span></a>
+                    <a href="#"><span class="fa fa-star red"></span></a>
+                    <a href="#"><span class="fa fa-star red"></span></a>
+                    <a href="#"><span class="fa fa-star-half-o red"></span></a>
+                    <a href="#"><span class="fa fa-star-o"></span></a>
+                  </p>
+                </div>
+                <div class="col-xs-12 col-sm-6 emphasis">
+                  <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
+                    </i> <i class="fa fa-comments-o"></i> </button>
+                  <a href="{{ url_for('user.profile', user_id=member['_id']) }}" class="btn btn-primary btn-xs">
+                    <i class="fa fa-user"> </i> View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+            {% endfor %}
+        </div>
+          <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+          {{ pg.paginate(data=members, url=url, params=params) }}
+</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'user/common/avator.js.html' %}
+{% endblock %}

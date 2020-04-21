@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>产品发布平台</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../bootstrp-table/bootstrap-table.css">
+</head>
+
+<body>
+    <nav class="navbar header navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle user-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-circle" src="../../../images/profile.png">
+                        <label style="margin-left: 10px">admin</label>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a href="#">注销</a></li>
+                  </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid body-content">
+        <div class="wrapper" id="wrapper">
+            <div class="left left-col">
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn portal-btn portal-btn-active">
+                    portal
+                </button>
+                <button type="button" class="btn list-btn">
+                    产品列表页
+                </button>
+                <button type="button" class="btn admin-btn">
+                    admin
+                </button>
+                </div>
+            </div>
+            <div class="right right-col">
+                <div class="catalog">
+                    <div class="product-row">
+                        <span class="product-label">产品类型</span>
+                        <div class="product-label-row">
+                        </div>
+                    </div>
+                    <div class="product-row">
+                        <span class="product-label" style="margin-right: 12px;">业务线</span>
+                        <div class="business-label-row">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px;">
+                    <button id="add-btn" class="btn list-btn text-center" type="button" data-toggle="modal" data-target="#addModal">
+                        <img src="../../../images/add_icon.png"/>
+                        <label class="text-center">新增</label>
+                    </button>
+                    <button id="edit-btn" class="btn list-btn text-center" type="button" data-toggle="modal" data-target="#addModal">
+                        <img src="../../../images/edit_icon.png"/>
+                        <label class="text-center">修改</label>
+                    </button>
+                    <button id="delete-btn" class="btn list-btn text-center" type="button">
+                        <img src="../../../images/delete_icon.png"/>
+                        <label class="text-center">删除</label>
+                    </button>
+                </div>
+
+                <div class="modal fade" id="addModal" style="padding: 20px;" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                <h4 class="modal-title" id="addModalLabel">新增</h4>
+                            </div>
+                            <div id="modal-body-content" class="modal-body">
+                                <form>
+                                    <input type="text" class="form-control hidden" id="form-id"/>
+                                    <div class="form-group">
+                                        <label for="form-name">产品名称</label>
+                                        <input type="text" class="form-control" id="form-name" placeholder="请输入产品名称"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-site">产品网址</label>
+                                        <input type="url" class="form-control" id="form-site" placeholder="超链接，可以是官网/后台登陆地址等"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-doc">产品文档</label>
+                                        <input type="url" class="form-control" id="form-doc" placeholder="超链接，建议填入confluence地址"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-business">商务文档</label>
+                                        <input type="url" class="form-control" id="form-business" placeholder="超链接，建议填入confluence地址"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-pro-type">产品类型</label>
+                                        <row id="form-pro-type" class="form-control form-btn-group">
+                                        </row>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-bus-type">业务标签</label>
+                                        <row id="form-bus-type" class="form-control form-btn-group">
+                                        </row>
+                                    </div>
+                                </form>
+                                <div class="form-group">
+                                    <span class="help-block help-text" title="标签维护请联系平台admin">没有我的标签？</span>
+                                </div>
+                                <div class="alert alert-danger" id="error-msg" role="alert">asdasdasdasdsadasdsa</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" id="save-product-btn" class="btn btn-info">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: -20px;">
+                    <div class="col-md-12">
+                        <table id="productTable" data-toggle="table"
+                               data-url="http://products.newayz.com/api/listProducts"
+                               data-query-params="queryParams"
+                               data-pagination="true"
+                               data-click-to-select="true"
+                               data-height="570">
+                            <thead>
+                            <tr>
+                                <th data-field="state" data-radio="true"></th>
+                                <th data-field="name">产品名称</th>
+                                <th data-field="prolabels">产品标签</th>
+                                <th data-field="desc">产品介绍</th>
+                                <th data-field="site">产品网址</th>
+                                <th data-field="id" data-formatter="operateFormatter">详细信息</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="../../jquery/jquery-1.12.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../../bootstrp-table/bootstrap-table.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="../../bootstrp-table/locale/bootstrap-table-zh-CN.js"></script>
+<script>
+    var selectProIds = [''];
+    var selectBusIds = [''];
+</script>
+<script src="../../../js/product.js"></script>
+<script type="text/javascript">
+    function operateFormatter(value, row, index) {
+        return [
+            '<div class="pull-left">',
+                '<a class="detail" href="javascript:void(0)" title="查看">',
+                    '<i class="glyphicon glyphicon-eye-open" style="margin-right:5px;"></i>查看',
+                '</a>  ',
+            '</div>',
+            '<div class="pull-right">',
+                '<a style="visibility:hidden" class="like" href="javascript:void(0)" title="查看">',
+                    '<i class="glyphicon glyphicon-eye-open"></i>',
+                '</a>  ',
+            '</div>',
+        ].join('');
+    }
+
+    function queryParams() {
+        return {
+            proLabelIds: selectProIds.join(','),
+            selectBusIds: selectBusIds.join(','),
+            pageNum: 10,
+            page: 1
+        };
+    }
+</script>
+
+</body>
+</html>

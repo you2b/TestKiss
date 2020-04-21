@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/ico" />
+    <title> WayzQA | {% block title %}{% endblock %} </title>
+
+    <!-- Bootstrap -->
+    <link href="{{url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{url_for('static', filename='vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="{{url_for('static', filename='vendors/animate.css/animate.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{{url_for('static', filename='build/css/custom.min.css')}}" rel="stylesheet">
+    {% include "common/notify.css.html" %}
+  </head>
+
+  <body class="login" style="background-image:url({{ url_for('static', filename='images/login_bicycle.jpeg') }})">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper" align="center">
+        {% block login %}
+        {% endblock %}
+      </div>
+    </div>
+    <script src="{{url_for('static', filename='vendors/jquery/dist/jquery.min.js')}}"></script>
+  {% include "common/notify.js.html" %}
+  <script src="{{url_for('static', filename='wayz/js/common.js')}}"></script>
+  </body>
+</html>

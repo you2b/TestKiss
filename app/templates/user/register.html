@@ -1,0 +1,67 @@
+{% extends "common/login_common.html" %}
+{% block title %}
+    用户注册
+{% endblock %}
+{% block login %}
+    <section class="login_content">
+        <form action="{{ url_for('user.register') }}" method="post">
+            {{ form.csrf_token }}
+            <h1>注册账号</h1>
+            <div class="item form-group bad">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    {{ form.username(size=20, placeholder="用户名", class="form-control col-md-7 col-xs-12", required="required") }}
+                    <span style="position: relative">
+                        {% for message in form.username.errors %}
+                            <div class="alert" style="position:absolute">{{ message }}</div>
+                        {% endfor %}
+                    </span>
+                </div>
+            </div>
+            <div class="item form-group bad">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    {{ form.email(size=20, placeholder="邮  箱", class="form-control col-md-7 col-xs-12", required="required") }}
+                    <span style="position: relative">
+                        {% for message in form.email.errors %}
+                            <div class="alert" style="position:absolute">{{ message }}</div>
+                        {% endfor %}
+                    </span>
+                </div>
+            </div>
+            <div class="item form-group bad">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    {{ form.password(size=20, placeholder="密  码", class="form-control col-md-7 col-xs-12", required="required") }}
+                    <span style="position: relative">
+                        {% for message in form.password.errors %}
+                            <div class="alert" style="position:absolute">{{ message }}</div>
+                        {% endfor %}
+                    </span>
+                </div>
+            </div>
+            <div class="item form-group bad">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    {{ form.confirm(size=20, placeholder="确认密码", class="form-control col-md-7 col-xs-12", required="required") }}
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary submit" type="submit">注册</button>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="separator">
+            <p class="change_link">已注册 ?
+              <a href="{{ url_for('user.login') }}" class="to_register"><strong> 登录 </strong></a>
+            </p>
+
+            <div class="clearfix"></div>
+            <br />
+
+            <div>
+              <h1><i class="fa fa-paw"></i> Wayz.QA</h1>
+              <p>©2019 All Rights Reserved. Wayz.QA is a case management system!</p>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+{% endblock %}

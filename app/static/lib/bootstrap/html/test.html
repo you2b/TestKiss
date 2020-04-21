@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>产品发布平台</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../bootstrp-table/bootstrap-table.css">
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.min.css">
+</head>
+
+<body>
+   <a href="#" data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#form-update-task" data-form_id="1" data-form_name="form name" data-form_priority="priority" data-form_rr="123456" data-form_due_date="2015-08-13" data-form_assigned="some guy">Edit</a>
+<!-- Form Modal -->
+<div class="modal fade" id="form-update-task" tabindex="-1" role="dialog" aria-labelledby="form-submission" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+                <form action="dashboard.php?action=update&type=tasks" type="POST" role="form">
+                <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text" name="name" id="name">
+                </div>
+                <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <input class="form-control" type="text" name="priority" id="priority">
+                </div>
+                <div class="form-group">
+                        <label for="rr">Resource Request ID</label>
+                        <input class="form-control" type="text" name="rr" id="rr">
+                </div>
+                <div class="form-group">
+                        <label for="due_date">Due Date</label>
+                        <input class="datepicker form-control" type="text" name="due_date" id="due_date">
+                </div>
+                <div class="form-group">
+                        <label for="assigned">Assigned</label>
+                        <input class="form-control" type="text" name="assigned" id="assigned">
+                </div>
+                <input type="hidden" name="id" id="id">
+                <button class="btn btn-default" type="submit">Update</button>
+        </form>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Form Modal -->
+
+<script src="../../jquery/jquery-1.12.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../../bootstrp-table/bootstrap-table.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="../../bootstrp-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../js/bootstrap-datepicker.min.js"></script>
+<script src="../js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+    $('#form-update-task').on('show.bs.modal', function(f) {
+
+         if (f.relatedTarget === undefined) return;
+
+        var name = $(f.relatedTarget).data('form_name');
+        var priority = $(f.relatedTarget).data('form_priority');
+        var rr = $(f.relatedTarget).data('form_rr');
+        var due_date = $(f.relatedTarget).data('form_due_date');
+        var assigned = $(f.relatedTarget).data('form_assigned');
+        var id = $(f.relatedTarget).data('form_id');
+        $(this).find('.modal-header').html("Update " + name);
+        $(".modal-body #name").val( name );
+        $(".modal-body #priority").val( priority );
+        $(".modal-body #rr").val( rr );
+        $(".modal-body #due_date").val( due_date );
+        $(".modal-body #assigned").val( assigned );
+        $(".modal-body #id").val( id );
+});
+$('.datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        startDate: "Today"
+});
+</script>
+
+</body>
+</html>

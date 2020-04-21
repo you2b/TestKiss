@@ -1,0 +1,65 @@
+<div class="top_nav">
+    <div class="nav_menu">
+        <nav>
+            <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class=""><a href="{{ url_for('home.dashboard') }}"><i class="fa fa-home blue"></i> 首页 </a></li>
+                <li class=""><a href="{{ url_for('product.lists') }}"><i class="fa fa-empire green"></i> 产品管理 </a></li>
+                <li class=""><a href="{{ url_for('case.dashboard') }}"><i class="fa fa-edit blue"></i>  测试用例 </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ current_user.info['avator'] }}" alt="">{{ current_user.username }}
+                        <span class=" fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li><a href="{{ url_for('user.profile', user_id=current_user.user_id) }}"> Profile</a></li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="badge bg-red pull-right">50%</span>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li><a href="{{ url_for('user.logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    </ul>
+                </li>
+
+                <li role="presentation" class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">6</span>
+                    </a>
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                                <span class="image"><img src="{{ url_for('static',filename='images/img.jpg') }}" alt="Profile Image" /></span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                                <a>
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="pull-left"><a href="{{ url_for('plan.product') }}"><i class="fa fa-play-circle-o blue"></i> 计划^执行^报告</a></li>
+                <li class="pull-left"><a href="{{ url_for('user.members') }}"><i class="fa fa-users blue"></i> 用户管理</a></li>
+                <li class="pull-left"><a href="{{ url_for('home.dashboard') }}"><i class="fa fa-gears blue"></i> 系统设置</a></li>
+                <li class="pull-left"><a href="{{ url_for('home.dashboard') }}"><i class="fa fa-leaf green"></i> 其他</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

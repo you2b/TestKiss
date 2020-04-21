@@ -1,0 +1,285 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+dashboard
+{% endblock %}
+
+{% block css %}
+    {% include 'case/common/edit.case.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12" style="position: fixed;z-index: 900; opacity:0.9;">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-11 col-xs-12">
+                                <h2><span class="module-parent">{{ product['name'] }}</span> <small class="total-case"></small></h2>
+                                <div hidden>
+                                    <input id="product_id" value="{{ product['_id'] }}">
+                                    <input id="plan_id" value="{{ plan['_id'] }}">
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-xs-12">
+                                <a class="collapse-link "><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content" style="height:600px;width:304px;overflow:auto">
+                        {% include 'run/common/run.tree.html' %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-xs-12 pull-right">
+                <div class="x_panel">
+                  <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-4 col-xs-12">
+                                <h2>{{ product['name'] }} <span style="color: deepskyblue">{{ plan['pd_ver'] }}</span></h2>
+                            </div>
+                            <div class="col-md-7 col-xs-12">
+                                <h2><span class="module-parent" style="color:deepskyblue;"></span></h2>
+                            </div>
+                            <div class="col-md-1 col-xs-12">
+                                <a class="btn btn-primary pull-right" href="{{ url_for('run.lists', product_id=product['_id'], plan_id=plan['_id']) }}">返回列表</a>
+                            </div>
+                        </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br>
+                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                      <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">执行名称*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input id="run_name" name="run_name" type="text" class="form-control col-md-7 col-xs-12">
+                        </div>
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">执行者*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input id="assign_to" name="assign_to" type="text" autocomplete="off" class="form-control col-md-7 col-xs-12">
+                            {% include 'run/common/assign.list.html' %}
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                          <a id="run_list" class="btn btn-primary" href="{{ url_for('run.lists', product_id=product['_id'], plan_id=plan['_id']) }}">取消</a>
+                          <a id="save_run" class="btn btn-success">创建</a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-4 col-xs-12">
+                                <h2>{{ product['name'] }}<small></small></h2>
+                            </div>
+                            <div class="col-md-7 col-xs-12">
+                            </div>
+                            <div class="col-md-1 col-xs-12">
+                                <h2><span class="module-parent" style="color:deepskyblue;">用例列表</span></h2>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">ID</th>
+                                        <th class="column-title">用例名称</th>
+                                        <th class="column-title">类型</th>
+                                        <th class="column-title">状态</th>
+                                        <th class="column-title">优先级</th>
+                                        <th class="column-title">作者</th>
+                                        <th class="column-title">标签</th>
+                                        <th class="column-title">更新时间</th>
+                                        <th class="column-title no-link last"><span class="nobr">操作</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for p in modules %}
+                                    {% if p['nt'] == 'leaf' %}
+                                        {% if 'cases' in p %}
+                                            {% for case in p['cases'] %}
+                                                <tr class="even pointer selected li_{{ p['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                    <td class=" ">{{ case['_id'] }}</td>
+                                                    <td class=" ">{{ case['name'] }}</td>
+                                                    <td class=" ">{{ case['type'] }}</td>
+                                                    <td class=" ">{{ case['stat'] }}</td>
+                                                    <td class=" ">{{ case['p'] }}</td>
+                                                    <td class=" ">{{ case['author'] }}</td>
+                                                    <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                    <td class=" ">{{ case['update_time']|unix_2_time }}</td>
+                                                    <td class="last">None</td>
+                                                </tr>
+                                                <tr class="li_{{ p['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                    <td colspan="9">
+                                                        <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="col-md-11 col-sm-11 col-xs-12">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['step']|safe }}</div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['expect']|safe }}</div>
+                                                            </div>
+                                                            <div class="col-md-1 col-sm-1 col-xs-12">
+                                                                <label class="label label-info quick-save">快速保存</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if p['nt'] == 'child' %}
+                                        {% if 'node' in p %}
+                                            {% for l in p['node'] %}
+                                                {% if 'cases' in l %}
+                                                    {% for case in l['cases'] %}
+                                                        <tr class="even pointer selected li_{{ p['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                            <td class=" ">{{ case['_id'] }}</td>
+                                                            <td class=" ">{{ case['name'] }}</td>
+                                                            <td class=" ">{{ case['type'] }}</td>
+                                                            <td class=" ">{{ case['stat'] }}</td>
+                                                            <td class=" ">{{ case['p'] }}</td>
+                                                            <td class=" ">{{ case['author'] }}</td>
+                                                            <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                            <td class=" ">{{ case['update_time']|unix_2_time }}</td>
+                                                            <td class="last">None
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="li_{{ p['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                            <td colspan="9">
+                                                                <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <div class="col-md-11 col-sm-11 col-xs-12">
+                                                                        <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['step']|safe }}</div>
+                                                                        <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['expect']|safe }}</div>
+                                                                    </div>
+                                                                    <div class="col-md-1 col-sm-1 col-xs-12">
+                                                                        <label class="label label-info quick-save">快速保存</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if p['nt'] == 'parent' %}
+                                        {% if 'node' in p %}
+                                            {% for c in p['node'] %}
+                                                {% if c['nt'] == "leaf" %}
+                                                    {% if 'cases' in c %}
+                                                        {% for case in c['cases'] %}
+                                                            <tr class="even pointer selected li_{{ p['_id'] }} li_{{ c['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                                <td class=" ">{{ case['_id'] }}</td>
+                                                                <td class=" ">{{ p['name'] }}>{{ c['name'] }}>{{ case['name'] }}</td>
+                                                                <td class=" ">{{ case['type'] }}</td>
+                                                                <td class=" ">{{ case['stat'] }}</td>
+                                                                <td class=" ">{{ case['p'] }}</td>
+                                                                <td class=" ">{{ case['author'] }}</td>
+                                                                <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                                <td class=" ">{{ case['update_time']|unix_2_time }}</td>
+                                                                <td class="last">None</td>
+                                                            </tr>
+                                                            <tr class="li_{{ p['_id'] }} li_{{ c['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                                <td colspan="9">
+                                                                    <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12">
+                                                                        <div class="col-md-11 col-sm-11 col-xs-12">
+                                                                            <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['step']|safe }}</div>
+                                                                            <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['expect']|safe }}</div>
+                                                                        </div>
+                                                                        <div class="col-md-1 col-sm-1 col-xs-12">
+                                                                            <label class="label label-info quick-save">快速保存</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endif %}
+                                                {% if c['nt'] == 'child' %}
+                                                    {% if 'node' in c %}
+                                                        {% for l in c['node'] %}
+                                                            {% if 'cases' in l %}
+                                                                {% for case in l['cases'] %}
+                                                                    <tr class="even pointer selected li_{{ p['_id'] }} li_{{ c['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                                        <td class=" ">{{ case['_id'] }}</td>
+                                                                        <td class=" ">{{ p['name'] }}>{{ c['name'] }}>{{ l['name'] }}>{{ case['name'] }}</td>
+                                                                        <td class=" ">{{ case['type'] }}</td>
+                                                                        <td class=" ">{{ case['stat'] }}</td>
+                                                                        <td class=" ">{{ case['p'] }}</td>
+                                                                        <td class=" ">{{ case['author'] }}</td>
+                                                                        <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                                        <td class=" ">{{ case['update_time']|unix_2_time }}</td>
+                                                                        <td class="last">None
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="li_{{ p['_id'] }} li_{{ c['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }}" hidden>
+                                                                        <td colspan="9">
+                                                                            <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <div class="col-md-11 col-sm-11 col-xs-12">
+                                                                                    <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['step']|safe }}</div>
+                                                                                    <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" contenteditable="true" >{{ case['expect']|safe }}</div>
+                                                                                </div>
+                                                                                <div class="col-md-1 col-sm-1 col-xs-12">
+                                                                                    <label class="label label-info quick-save">快速保存</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'run/common/run.add.js.html' %}
+{% endblock %}

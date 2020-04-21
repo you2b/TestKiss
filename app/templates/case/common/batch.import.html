@@ -1,0 +1,25 @@
+<div class="modal fade bs-add-modal-md" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">{{ product['name'] }}-测试用例批量导入</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control" id="upload_template" placeholder="请选择文件">
+                        <span class="fa fa-eye form-control-feedback right blue" aria-hidden="true"></span>
+                    </div>
+                    <div hidden><input type="file" name="template" id="template"/></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a type="button" class="btn btn-success" href="{{ url_for('static', filename='wayz/files/case_template.xlsx') }}">下载模板</a>
+                <button id="confirm" type="button" class="btn btn-primary">上传</button>
+            </div>
+        </div>
+    </div>
+</div>

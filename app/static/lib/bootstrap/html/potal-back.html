@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产品发布平台</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../bootstrp-table/bootstrap-table.css">
+</head>
+<body>
+
+<nav class="navbar header navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+		    <li class="dropdown">
+			    <a href="#" class="dropdown-toggle user-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="img-circle" src="../../../images/profile.png">
+                    <label style="margin-left: 10px">admin</label>
+                    <span class="caret"></span>
+			    </a>
+                <ul class="dropdown-menu">
+				<li><a href="#">注销</a></li>
+			  </ul>
+			</li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid body-content">
+    <div class="row">
+        <div class="col-md-1 left-col">
+            <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn portal-btn portal-btn-active">
+                    portal
+                </button>
+                <button type="button" class="btn list-btn">
+                    产品列表页
+                </button>
+                <button type="button" class="btn admin-btn">
+                    admin
+                </button>
+            </div>
+        </div>
+        <div class="col-md-11 right-col">
+            <div class="catalog">
+                <div class="product-row">
+                    <span class="product-lable">产品类型</span>
+                    <button class="btn btn-round" type="button">
+                       内部工具 <span class="badge icon-checked">✔</span>
+                    </button>
+                    <button class="btn btn-round btn-round-checked" type="button">
+                       外部产品...
+                    </button>
+                </div>
+                <div class="product-row">
+                    <span class="product-lable">业务线&nbsp;&nbsp;&nbsp;</span>
+                    <button class="btn btn-round" type="button">
+                       内部工具 <span class="badge icon-checked">✔</span>
+                    </button>
+                    <button class="btn btn-round btn-round-checked" type="button">
+                       外部产品...
+                    </button>
+                </div>
+            </div>
+
+            <div id="myCarousel" class="carousel slide row-magin-vertical">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-6";>
+                                <div class="product-content text-center">
+                                    <span class="product-title">LBS APP</span>
+                                    <p class="product-desc" align="left">基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务</p>
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-2">
+                                        </div>
+                                        <div class="col-md-4 col-xs-4">
+                                            <a class="btn product-detail" role="button">查看详情></a>
+                                        </div>
+                                        <div class="col-md-4 col-xs-6">
+                                            <a href="#" class="btn pull-right product-detail-link-icon" role="button"></a>
+                                            <a href="#" class="btn  pull-right product-detail-download-icon" role="button"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-6">
+                                <div class="product-content text-center">
+                                    <span class="product-title">LBS APP</span>
+                                    <p class="product-desc" align="left">基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务</p>
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-2">
+                                        </div>
+                                        <div class="col-md-4 col-xs-4">
+                                            <a class="btn product-detail" role="button">查看详情></a>
+                                        </div>
+                                        <div class="col-md-4 col-xs-6">
+                                            <a href="#" class="btn pull-right product-detail-link-icon" role="button"></a>
+                                            <a href="#" class="btn  pull-right product-detail-download-icon" role="button"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-6";>
+                                <div class="product-content text-center">
+                                    <span class="product-title">LBS APP</span>
+                                    <p class="product-desc" align="left">基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务基于位置的服务</p>
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-2">
+                                        </div>
+                                        <div class="col-md-4 col-xs-4">
+                                            <a class="btn product-detail" role="button">查看详情></a>
+                                        </div>
+                                        <div class="col-md-4 col-xs-6">
+                                            <a href="#" class="btn pull-right product-detail-link-icon" role="button"></a>
+                                            <a href="#" class="btn  pull-right product-detail-download-icon" role="button"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <img class="icon-arrow-left" aria-hidden="true" src="../../../images/carousel_left.png"/>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <img class="icon-arrow-right" aria-hidden="true" src="../../../images/carousel_right.png"/>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <h3 class="row-magin-vertical">发版统计</h3>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">
+                    <div class="product-content text-center">
+                        <p class="product-title">本周</p>
+                        <p class="number-font week-number">3</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-4">
+                    <div class="product-content text-center">
+                        <p class="product-title">本月</p>
+                        <p class="number-font month-number">3</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-4">
+                    <div class="product-content text-center">
+                        <p class="product-title">累计</p>
+                        <p class="number-font total-number">3</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="row-magin-vertical">最近发版记录</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="table"></table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="../../jquery/jquery-1.12.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../../bootstrp-table/bootstrap-table.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="../../bootstrp-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript">
+    $('#table').bootstrapTable({
+        columns: [{
+            field: 'id',
+            title: 'Item ID'
+        }, {
+            field: 'name',
+            title: 'Item Name'
+        }, {
+            field: 'price',
+            title: 'Item Price'
+        }],
+        data: [{
+            id: 1,
+            name: 'Item 1',
+            price: '$1'
+        }, {
+            id: 2,
+            name: 'Item 2',
+            price: '$2'
+        }]
+    });
+</script>
+
+</body>
+</html>

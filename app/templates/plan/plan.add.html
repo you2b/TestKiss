@@ -1,0 +1,130 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}添加测试计划{% endblock %}
+
+{% block css %}
+    {% include 'plan/common/common.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="col-md-5 col-xs-12">
+                                    <h2><strong>{{ product['name'] }}</strong><small></small></h2>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <h2><span style="color:deepskyblue;">新增测试计划</span></h2>
+                                </div>
+                                <div class="col-md-1 col-xs-12">
+                                    <a id="go_back" class="btn btn-primary" href="{{ url_for('plan.lists', product_id=product['_id']) }}">返回列表</a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left">
+                            <div hidden><input id="product_id" value="{{ product["_id"] }}"/></div>
+                                <div class="col-md-12 col-xs-12" style="margin-top: 8px">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12 ">计划名称*</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input id="plan_name" name="plan_name" type="text" class="form-control" placeholder="测试计划名称">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">产品版本*</label>
+                                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                                <select id="pd_ver" name="pd_ver" class="select2_single form-control" tabindex="-1">
+                                                    {% for v in versions %}
+                                                        <option value="{{ v['ver'] }}">{{ v['ver'] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <label class="control-label col-md-2 col-sm-2 col-xs-12"><span data-toggle="modal" data-target=".bs-version-modal-sm"><i class="glyphicon glyphicon-plus blue">新增版本</i></span></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">计划类型*</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <select id="plan_type" name="plan_type" class="select2_single form-control" tabindex="-1">
+                                                    <option value="0"></option>
+                                                    <option value="单元测试">单元测试</option>
+                                                    <option value="集成测试">集成测试</option>
+                                                    <option value="系统测试">系统测试</option>
+                                                    <option value="回归测试">回归测试</option>
+                                                    <option value="性能测试">性能粗车</option>
+                                                    <option value="安全测试">安全测试</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2>计划详情<small>*必填*</small></h2>
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="x_content">
+                                                    <div id="editor-one" class="editor-wrapper" contenteditable="true"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div hidden><input id="plan_detail_input" name="plan_detail"/></div>
+                                                <div class="row no-print">
+                                                    <div class="col-xs-12">
+                                                        <a class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> 打印</a>
+                                                        <a id="add_plan" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> 保存</a>
+                                                        <a id="cancel_btn" class="btn btn-primary pull-right" href="{{ url_for('plan.lists', product_id=product['_id']) }}"><i class="fa fa-download"></i> 取消</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'plan/common/plan.modal.html' %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'plan/common/common.js.html' %}
+    <script src="{{ url_for('static', filename='wayz/js/product.version.js')}}"></script>
+    <script src="{{ url_for('static', filename='wayz/js/plan.js')}}"></script>
+{% endblock %}

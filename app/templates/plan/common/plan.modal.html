@@ -1,0 +1,47 @@
+<div class="modal fade bs-version-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel2">{{ product['name'] }}</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal form-label-left input_mask">
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">版本:</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="product_version" name="desc" type="text" class="form-control" placeholder="产品版本">
+                    </div>
+                  </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button id="add_product_version" type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade bs-delete-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel2">是否删除</h4>
+        </div>
+        <div class="modal-body">
+            <h4><i class="fa fa-google-wallet" style="color: blue"></i> <strong id="delete_name" style="color: red"></strong>?</h4>
+            <input id="delete_id" name="_id" hidden="ture"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button id="delete_plan" type="button" class="btn btn-danger">确定</button>
+        </div>
+      </div>
+    </div>
+</div>

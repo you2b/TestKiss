@@ -1,0 +1,156 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}
+产品分类列表
+{% endblock %}
+
+{% block css %}
+    {% include 'run/common/common.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="clearfix"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-5 col-xs-12">
+                                <h2><strong>{{ product['name'] }}</strong><span style="color:deepskyblue;"> {{ plan['pd_ver'] }}</span></h2>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                                <h2><span style="color:deepskyblue;">执行列表</span></h2>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <a class="btn btn-success pull-right" href="{{ url_for('run.add', product_id=product['_id'], plan_id=plan["_id"]) }}">创建执行</a>
+                                <a class="btn btn-primary pull-right" href="{{ url_for('plan.lists', product_id=product['_id']) }}">计划列表</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th>
+                                        <input type="checkbox" id="check-all" class="flat">
+                                    </th>
+                                    <th class="column-title">ID</th>
+                                    <th class="column-title">名称</th>
+                                    <th class="column-title">执行者 </th>
+                                    <th class="column-title">状态 </th>
+                                    <th class="column-title" colspan="2">执行统计</th>
+                                    <th class="column-title">开始时间</th>
+                                    <th class="column-title">结束时间 </th>
+                                    <th class="column-title no-link last"><span class="nobr">操作</span></th>
+                                    <th class="bulk-actions" colspan="9">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">批量操作 ( <span class="action-cnt"> </span> ) </a><button class="label label-danger">批量删除</button>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for r in runs['data'] %}
+                                    {% if r['_id']|is_odd %}
+                                        <tr class="even pointer">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records">
+                                            </td>
+                                            <td class=" ">{{ r['_id'] }}</td>
+                                            <td class=" ">{{ r['name'] }}</td>
+                                            <td class=" ">{{ r['assign'] }}</td>
+                                            <td class=" ">{{ r['stat'] }}</td>
+                                            <td  colspan="2">
+                                                <span class="label label-info">{{ r['progress']['init']['name'] }}:{{ r['progress']['init']['count'] }}</span>
+                                                <span class="label label-warning">{{ r['progress']['stop']['name'] }}:{{ r['progress']['stop']['count'] }}</span>
+                                                <span class="label label-default">{{ r['progress']['abort']['name'] }}:{{ r['progress']['abort']['count'] }}</span>
+                                                <span class="label label-danger">{{ r['progress']['fail']['name'] }}:{{ r['progress']['fail']['count'] }}</span>
+                                                <span class="label label-success">{{ r['progress']['pass']['name'] }}:{{ r['progress']['pass']['count'] }}</span>
+                                                <span class="label bg-purple">{{ r['progress']['total']['name'] }}:{{ r['progress']['total']['count'] }}</span>
+                                            </td>
+                                            <td class=" ">{% if r['start_time'] == "" %}--{% else %}{{ r['start_time']|unix_2_time }}{% endif %}</td>
+                                            <td class=" ">{% if r['end_time'] == "" %}--{% else %}{{ r['end_time']|unix_2_time }}{% endif %}</td>
+                                            <td class="last">
+                                                {% if r['stat'] == "已完成" %}
+                                                    <a href="{{ url_for('report.detail', run_id=r["_id"]) }}" class="label label-success">查看报告</a>
+                                                {% else %}
+                                                    <a href="{{ url_for('run.detail', run_id=r["_id"]) }}" class="label label-primary">开始执行</a>
+                                                    <button value="{{ r['_id'] }}" class="label label-danger delete-run" data-toggle="modal" data-target=".bs-delete-modal-sm">删除</button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr class="odd pointer">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records">
+                                            </td>
+                                            <td class=" ">{{ r['_id'] }}</td>
+                                            <td class=" ">{{ r['name'] }}</td>
+                                            <td class=" ">{{ r['assign'] }}</td>
+                                            <td class=" ">{{ r['stat'] }}</td>
+                                            <td  colspan="2">
+                                                <span class="label label-info">{{ r['progress']['init']['name'] }}:{{ r['progress']['init']['count'] }}</span>
+                                                <span class="label label-warning">{{ r['progress']['stop']['name'] }}:{{ r['progress']['stop']['count'] }}</span>
+                                                <span class="label label-default">{{ r['progress']['abort']['name'] }}:{{ r['progress']['abort']['count'] }}</span>
+                                                <span class="label label-danger">{{ r['progress']['fail']['name'] }}:{{ r['progress']['fail']['count'] }}</span>
+                                                <span class="label label-success">{{ r['progress']['pass']['name'] }}:{{ r['progress']['pass']['count'] }}</span>
+                                                <span class="label bg-purple">{{ r['progress']['total']['name'] }}:{{ r['progress']['total']['count'] }}</span>
+                                            </td>
+                                            <td class=" ">{% if r['start_time'] == "" %}--{% else %}{{ r['start_time']|unix_2_time }}{% endif %}</td>
+                                            <td class=" ">{% if r['end_time'] == "" %}--{% else %}{{ r['end_time']|unix_2_time }}{% endif %}</td>
+                                            <td class="last">
+                                                {% if r['stat'] == "已完成" %}
+                                                    <a href="{{ url_for('report.detail', run_id=r["_id"]) }}" class="label label-success">查看报告</a>
+                                                {% else %}
+                                                    <a href="{{ url_for('run.detail', run_id=r["_id"]) }}" class="label label-primary">开始执行</a>
+                                                    <button value="{{ r['_id'] }}" class="label label-danger delete-run" data-toggle="modal" data-target=".bs-delete-modal-sm">删除</button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {{ pg.paginate(data=runs, url=url, params=params) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'run/common/run.list.modal.html' %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'run/common/common.js.html' %}
+    <script src="{{ url_for('static', filename='wayz/js/run.list.js')}}"></script>
+{% endblock %}

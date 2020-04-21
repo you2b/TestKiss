@@ -1,0 +1,118 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+dashboard
+{% endblock %}
+
+{% block css %}
+    {% include 'user/common/profile.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>用户详情<small></small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <!-- Current avatar -->
+                                    <a href="{% if member['_id'] == current_user.user_id %}{{ url_for('user.avator') }}{% endif %}">
+                                    <img class="img-responsive avatar-view img-rounded" src="{{ member.info['avator'] }}" alt="Avatar" title="Change the avatar">
+                                    </a>
+                                </div>
+                            </div>
+                            <h3>{{ member['username'] }}</h3>
+
+                            <ul class="list-unstyled user_data">
+                                <li><i class="fa fa-map-marker user-profile-icon"></i> {{ member.info['addr'] }}
+                                </li>
+
+                                <li>
+                                    <i class="fa fa-briefcase user-profile-icon"></i> {{ member.info['title'] }}
+                                </li>
+                                <li class="m-top-xs">
+                                    <i class="fa fa-external-link user-profile-icon"></i>
+                                    <a href="{{ url_for('user.profile', user_id=member['_id']) }}" target="_blank">http://qa.newayz.com</a>
+                                </li>
+                            </ul>
+
+                            {% if  member['_id'] == current_user.user_id %}
+                                <a class="btn btn-success" href="{{ url_for('user.edit_profile', user_id=member['_id']) }}"><i class="fa fa-edit m-right-xs"></i> 编辑信息</a>
+                            {% else %}
+                                <a class="btn btn-dark"><i class="fa fa-edit m-right-xs"></i> 编辑信息</a>
+                            {% endif %}
+                            <br />
+
+                            <!-- start skills -->
+                            <h4>Skills</h4>
+                            <ul class="list-unstyled user_data">
+                                {% if 'skills' in member.info %}
+                                    {% for skill in member.info['skills'] %}
+                                        <li>
+                                            <p>{{ skill['sk'] }}</p>
+                                            <div class="progress progress_sm">
+                                                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                            <!-- end of skills -->
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">自我介绍</a>
+                                    </li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
+                                        {{ member.info['intro']|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'user/common/profile.js.html' %}
+{% endblock %}

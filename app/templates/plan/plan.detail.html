@@ -1,0 +1,85 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}添加测试计划{% endblock %}
+
+{% block css %}
+    {% include 'plan/common/common.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="col-md-5 col-xs-12">
+                                    <h2><strong>{{ product['name'] }}</strong><small>{{ plan['pd_ver'] }}</small></h2>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <h2><span style="color:deepskyblue;">测试计划详情</span></h2>
+                                </div>
+                                <div class="col-md-1 col-xs-12">
+                                    <a id="go_back" class="btn btn-primary" href="{{ url_for('plan.lists', product_id=product['_id']) }}">返回列表</a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <section class="content invoice">
+                                <div class="row">
+                                    <div class="col-xs-12 invoice-header">
+                                        <h1><i class="fa fa-globe"></i> {{ plan['name'] }}<small class="pull-right"></small></h1>
+                                    </div>
+                                </div>
+                                <div class="row invoice-info">
+                                    <div class="col-sm-4 invoice-col">
+                                        <address>
+                                            <h2>计划类型:{{ plan['type'] }}</h2>
+                                            <h2>创建时间:{{ plan['update_time']|unix_2_time }}</h2>
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="row">
+                                    <div class="col-xs-12 table">{{ plan['detail']|safe }}</div>
+                                </div>
+                                <div class="row no-print">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> 打印</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'plan/common/common.js.html' %}
+{% endblock %}

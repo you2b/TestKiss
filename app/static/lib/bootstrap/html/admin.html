@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>产品发布平台</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../bootstrp-table/bootstrap-table.css">
+</head>
+
+<body>
+    <nav class="navbar header navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle user-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-circle" src="../../../images/profile.png">
+                        <label style="margin-left: 10px">admin</label>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a href="#">注销</a></li>
+                  </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid body-content">
+        <div class="wrapper" id="wrapper">
+            <div class="left left-col">
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn portal-btn portal-btn-active">
+                    portal
+                </button>
+                <button type="button" class="btn list-btn">
+                    产品列表页
+                </button>
+                <button type="button" class="btn admin-btn">
+                    admin
+                </button>
+                </div>
+            </div>
+            <div class="right right-col">
+                <div class="row" style="margin-top: 20px;">
+                    <button id="add-btn" class="btn list-btn text-center" type="button" data-toggle="modal" data-target="#addModal">
+                        <img src="../../../images/add_icon.png"/>
+                        <label class="text-center">新增</label>
+                    </button>
+                    <button id="edit-btn" class="btn list-btn text-center" type="button" data-toggle="modal" data-target="#addModal">
+                        <img src="../../../images/edit_icon.png"/>
+                        <label class="text-center">修改</label>
+                    </button>
+                    <button id="delete-btn" class="btn list-btn text-center" type="button">
+                        <img src="../../../images/delete_icon.png"/>
+                        <label class="text-center">删除</label>
+                    </button>
+                </div>
+
+                <div class="row" style="margin-top: -150px;">
+                    <div class="col-md-12">
+                        <table id="labelTable" data-toggle="table"
+                               data-url="http://products.newayz.com/api/listLabels"
+                               data-query-params="queryParams"
+                               data-pagination="true"
+                               data-click-to-select="true"
+                               data-height="570">
+                            <thead>
+                            <tr>
+                                <th data-field="state" data-radio="true"></th>
+                                <th data-field="id">标签ID</th>
+                                <th data-field="name">标签名称</th>
+                                <th data-field="type" data-formatter="typeFormatter">标签类型</th>
+                                <th data-field="createTime">创建时间</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="addModal" style="padding: 20px;" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                <h4 class="modal-title" id="addModalLabel">新增</h4>
+                            </div>
+                            <div id="modal-body-content" class="modal-body">
+                                <form>
+                                    <input type="text" class="form-control hidden" id="form-id"/>
+                                    <div class="form-group">
+                                        <label for="form-name">标签名称</label>
+                                        <input type="text" class="form-control" id="form-name" placeholder="请输入标签名称"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-type">标签类型</label>
+                                        <select id="form-type" class="form-control">
+                                          <option value="1">业务标签</option>
+                                          <option value="2">产品类型标签</option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <div class="alert alert-danger" id="error-msg" role="alert"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" id="save-btn" class="btn btn-info">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="../../jquery/jquery-1.12.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../../bootstrp-table/bootstrap-table.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="../../bootstrp-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../../../js/admin.js"></script>
+<script type="text/javascript">
+    function typeFormatter(value, row, index) {
+        if(value == 1) {
+            return '业务标签';
+        } else {
+            return '产品类型标签';
+        }
+    }
+
+    function queryParams() {
+        return {
+            pageNum: 10,
+            page: 1
+        };
+    }
+</script>
+
+</body>
+</html>

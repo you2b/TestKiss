@@ -1,0 +1,138 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}
+产品分类列表
+{% endblock %}
+
+{% block css %}
+    {% include 'plan/common/common.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="clearfix"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-5 col-xs-12">
+                                <h2><strong>{{ product['name'] }}</strong></h2>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                                <h2><span style="color:deepskyblue;">计划列表</span></h2>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <a class="btn btn-success pull-right" href="{{ url_for('plan.add', product_id=product['_id']) }}">添加计划</a>
+                                <a class="btn btn-primary pull-right" href="{{ url_for('plan.lists') }}">产品列表</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th>
+                                        <input type="checkbox" id="check-all" class="flat">
+                                    </th>
+                                    <th class="column-title">ID</th>
+                                    <th class="column-title">名称</th>
+                                    <th class="column-title">产品版本</th>
+                                    <th class="column-title">状态 </th>
+                                    <th class="column-title">执行者 </th>
+                                    <th class="column-title">创建时间</th>
+                                    <th class="column-title">更新时间 </th>
+                                    <th class="column-title no-link last" colspan="2"><span class="nobr">操作</span></th>
+                                    <th class="bulk-actions" colspan="9">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">批量操作 ( <span class="action-cnt"> </span> ) </a><button class="label label-danger">批量删除</button>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for pl in plans['data'] %}
+                                    {% if pl['_id']|is_odd %}
+                                        <tr class="even pointer">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records">
+                                            </td>
+                                            <td class=" ">{{ pl['_id'] }}</td>
+                                            <td class=" ">{{ pl['name'] }}</td>
+                                            <td class=" ">{{ pl['pd_ver'] }}</td>
+                                            <td class=" ">{{ pl['type'] }}</td>
+                                            <td class=" ">{{ pl['author'] }}</td>
+                                            <td class=" ">{{ pl['create_time']|unix_2_time }}</td>
+                                            <td class=" ">{{ pl['update_time']|unix_2_time }}</td>
+                                            <td class="last" colspan="2">
+                                                <a href="{{ url_for('run.lists', plan_id=pl['_id'], product_id=product['_id'])}}" class="label label-info view-pl">查看执行</a>
+                                                <a href="{{ url_for('plan.detail', plan_id=pl['_id'], product_id=product['_id'])}}" class="label label-primary view-pl">查看</a>
+                                                <a href="{{ url_for('plan.update', plan_id=pl['_id'], product_id=product['_id']) }}" class="label label-warning update-pl">编辑</a>
+                                                <button value="{{ pl['_id'] }}" class="label label-danger delete-pl" data-toggle="modal" data-target=".bs-delete-modal-sm">删除</button>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr class="odd pointer">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records">
+                                            </td>
+                                            <td class=" ">{{ pl['_id'] }}</td>
+                                            <td class=" ">{{ pl['name'] }}</td>
+                                            <td class=" ">{{ pl['pd_ver'] }}</td>
+                                            <td class=" ">{{ pl['type'] }}</td>
+                                            <td class=" ">{{ pl['author'] }}</td>
+                                            <td class=" ">{{ pl['create_time']|unix_2_time }}</td>
+                                            <td class=" ">{{ pl['update_time']|unix_2_time }}</td>
+                                            <td class="last" colspan="2">
+                                                <a href="{{ url_for('run.lists', plan_id=pl['_id'], product_id=product['_id']) }}" class="label label-info view-pl">查看执行</a>
+                                                <a href="{{ url_for('plan.detail', plan_id=pl['_id'], product_id=product['_id']) }}" class="label label-primary view-pl">查看</a>
+                                                <a href="{{ url_for('plan.update', plan_id=pl['_id'], product_id=product['_id']) }}" class="label label-warning update-pl">编辑</a>
+                                                <button value="{{ pl['_id'] }}" class="label label-danger delete-pl" data-toggle="modal" data-target=".bs-delete-modal-sm">删除</button>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {{ pg.paginate(data=plans, url=url, params=params) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'plan/common/plan.modal.html' %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'plan/common/common.js.html' %}
+    <script src="{{ url_for('static', filename='wayz/js/plan.list.js')}}"></script>
+{% endblock %}

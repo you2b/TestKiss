@@ -1,0 +1,121 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+dashboard
+{% endblock %}
+
+{% block css %}
+    {% include 'user/common/profile.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-5 col-xs-12">
+                                <h2><strong>编辑用户</strong><span style="color:deepskyblue;"></span></h2>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <a id="save_profile" class="btn btn-primary pull-right"><i class="fa fa-edit m-right-xs"></i>保存修改</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                    <div hidden><input id="user_id" value="{{ member['_id'] }}"/></div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <!-- Current avatar -->
+                                    <a href="{% if member['_id'] == current_user.user_id %}{{ url_for('user.avator') }}{% endif %}">
+                                    <img class="img-responsive avatar-view img-rounded" src="{{ member.info['avator'] }}" alt="Avatar" title="Change the avatar">
+                                    </a>
+                                </div>
+                            </div>
+                            <h3>{{ member['username'] }}</h3>
+
+                            <ul class="list-unstyled user_data">
+                                <li><i class="fa fa-phone user-profile-icon">手机</i> <div id="user_phone" class="tree-line" contentEditable="true">{{ member.info['phone'] }}</div>
+                                </li>
+                                <li><i class="fa fa-comment-o user-profile-icon">名言</i> <div id="user_favor" class="tree-line" contentEditable="true">{{ member.info['favor'] }}</div>
+                                </li>
+                                <li><i class="fa fa-map-marker user-profile-icon">地址</i> <div id="user_addr" class="tree-line" contentEditable="true">{{ member.info['addr'] }}</div>
+                                </li>
+
+                                <li>
+                                    <i class="fa fa-briefcase user-profile-icon">岗位</i> <div id="user_title" class="tree-line" contentEditable="true">{{ member.info['title'] }}</div>
+                                </li>
+                                <li class="m-top-xs">
+                                    <i class="fa fa-envelope user-profile-icon">邮箱: {{ member.info['email'] }}</i>
+                                </li>
+                            </ul>
+                            <br />
+
+                            <!-- start skills -->
+                            <h4>Skills<small class="green"> 熟练度0.5 ~ 5</small></h4>
+                            <ul id="skill_list" class="list-unstyled user_data">
+                                {% if 'skills' in member.info %}
+                                    {% for skill in member.info['skills'] %}
+                                        <li>
+                                            <div class="skill-name tree-line" contentEditable="true">{{ skill['sk'] }}</div> *
+                                            <div class="skill-point tree-line" contentEditable="true">{{ skill['sp'] }}</div>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                                <h1><i id="add_skill" class="glyphicon glyphicon-plus-sign purple"></i></h1>
+                            <!-- end of skills -->
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">自我介绍</a>
+                                    </li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="profile-tab">
+                                        <div id="editor-two" class="editor-wrapper" contenteditable="true">
+                                            {{ member.info['intro']|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'user/common/profile.js.html' %}
+    <script src="{{ url_for('static', filename='wayz/js/profile.edit.js') }}"></script>
+{% endblock %}

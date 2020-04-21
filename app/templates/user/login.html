@@ -1,0 +1,54 @@
+{% extends "common/login_common.html" %}
+{% block title %}
+    用户登录
+{% endblock %}
+{% block login %}
+    <div class="animate form login_form">
+        <section class="login_content">
+            <form action="{{ url_for('user.login') }}" method="post">
+                {{ form.csrf_token }}
+                <h1>用户登录</h1>
+                <div class="item form-group bad">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {{ form.username(size=20, placeholder="用户名", class="form-control col-md-7 col-xs-12", required="required") }}
+                        <span style="position: relative">
+                            {% for message in form.username.errors %}
+                                <div class="alert" style="position:absolute">{{ message }}</div>
+                            {% endfor %}
+                        </span>
+                    </div>
+                </div>
+                <div class="item form-group bad">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {{ form.password(size=20, placeholder="密  码", class="form-control col-md-7 col-xs-12", required="required") }}
+                        <span style="position: relative">
+                            {% for message in form.password.errors %}
+                                <div class="alert" style="position:absolute">{{ message }}</div>
+                            {% endfor %}
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success submit">登 录</button>
+                    <a class="reset_pass" href="#">忘记密码?</a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                    <p class="change_link">新用户?
+                        <a href="{{ url_for('user.register') }}" class="to_register"> <strong> 注册账号 </strong></a>
+                    </p>
+
+                    <div class="clearfix"></div>
+                <br />
+
+                    <div>
+                        <h1><i class="fa fa-paw"></i> Wayz.QA!</h1>
+                        <p>©2020 All Rights Reserved. TestKiss is a case management system.</p>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock %}

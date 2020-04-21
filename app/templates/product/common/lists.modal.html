@@ -1,0 +1,110 @@
+<!--添加产品蒙层-->
+<div class="modal fade bs-add-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">添加产品</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">*产品名称:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="pd_name" name="name" type="text" class="form-control" placeholder="请输入产品名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">请选择产品分类:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select id="product_category" name="category" class="select2_single form-control pd-category" tabindex="-1">
+                                <option value="0"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">产品地址:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="pd_link" name="link" type="text" class="form-control" placeholder="请输入产品地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">产品描述:
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea id="pd_desc" name="desc" class="form-control" rows="3" placeholder="请输入产品描述"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="add_product" type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--更新产品蒙层代码-->
+<div class="modal fade bs-edit-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">更新产品信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label-left">
+                    <input id="edit_id" hidden="true"/>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">*产品名称:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="edit_name" name="name" type="text" class="form-control" placeholder="请输入产品名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">产品地址:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="edit_link" name="link" type="text" class="form-control" placeholder="请输入产品地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">产品描述:
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea id="edit_desc" name="desc" class="form-control" rows="3" placeholder="请输入产品描述"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="edit_product" type="button" class="btn btn-warning">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--删除产品蒙层-->
+<div class="modal fade bs-delete-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">删除产品分类</h4>
+            </div>
+            <div class="modal-body">
+                <h4><i class="fa fa-google-wallet" style="color: blue"></i> 是否确认删除 <strong id="delete_name" style="color: red"></strong>?</h4>
+                <input id="delete_id" name="_id" hidden="ture"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="delete_product" type="button" class="btn btn-danger">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

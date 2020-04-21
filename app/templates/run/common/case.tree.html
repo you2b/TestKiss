@@ -1,0 +1,128 @@
+<div class="tree well">
+<ul id="origin-ul" class="sortable">
+    {% for p in modules %}
+        {% if p['nt'] == "parent" %}
+            <li class="parent_li draggable" id="li_{{ p['_id'] }}" style="display: list-item;" st="{{ p['st'] }}" nt="{{ p['nt'] }}">
+                <span title="Expand this branch" id="{{ p['_id'] }}">
+                    <i class="glyphicon glyphicon-folder-open blue"></i> {{ p['name'] }}
+                </span>
+                <a></a><i class="fa fa-yelp purple"></i>
+                {% if 'node' in p %}<ul class="sortable">{% endif %}
+                    {% for c in p['node'] %}
+                        {% if c['nt'] == "child" %}
+                            <li class="parent_li draggable" id="li_{{ c['_id'] }}" style="display: none;" st="{{ c['st'] }}" nt="{{ c['nt'] }}">
+                            <span title="Expand this branch" id="{{ c['_id'] }}">
+                                <i class="glyphicon glyphicon-plus-sign purple">
+                                </i> {{ c['name'] }}
+                            </span>
+                            <a></a><i class="fa fa-yelp purple"></i>
+                            {% if 'node' in c %}<ul class="sortable">{% endif %}
+                                {% for l in c['node'] %}
+                                        <li class="parent_li draggable" id="li_{{ l['_id'] }}" style="display: none;" st="{{ l['st'] }}" nt="{{ l['nt'] }}">
+                                        <span title="Expand this branch" id="{{ l['_id'] }}" class="leaf-node">
+                                            <i class="glyphicon glyphicon-leaf green">
+                                            </i> {{ l['name'] }}</span>
+                                        <a></a><i class="glyphicon glyphicon-edit green"></i>
+                                        {% if 'cases' in l %}<ul class="sortable">{% endif %}
+                                            {% for case in l['cases'] %}
+                                                <li id="case_{{ case['_id'] }}" class="case-node draggable" st="{{ case['st'] }}">
+                                                    <span>{{ case['name'] }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        {% if 'cases' in l %}</ul>{% endif %}
+                                        </li>
+                                {% endfor %}
+                            {% if 'node' in c %}</ul>{% endif %}
+                            </li>
+                        {% endif %}
+                        {% if c['nt'] == "leaf" %}
+                            <li id="li_{{ c['_id'] }}" class="parent_li draggable" style="display: none;" st="{{ c['st'] }}" nt="{{ c['nt'] }}">
+                                <span id="{{ c['_id'] }}" class="leaf-node">
+                                    <i class="glyphicon glyphicon-leaf green"></i> {{ c['name'] }}
+                                </span>
+                                <a></a><i class="glyphicon glyphicon-edit green"></i>
+                                {% if 'cases' in c %}<ul class="sortable">{% endif %}
+                                    {% for case in c['cases'] %}
+                                        <li id="case_{{ case['_id'] }}" class="case-node draggable" st="{{ case['st'] }}">
+                                            <span>{{ case['name'] }}</span>
+                                        </li>
+                                    {% endfor %}
+                                {% if 'cases' in c %}</ul>{% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% if 'node' in p %}</ul>{% endif %}
+            </li>
+        {% endif %}
+        {% if p['nt'] == "child" %}
+            <li id="li_{{ p['_id'] }}" class="parent_li draggable" st="{{ p['st'] }}" nt="{{ p['nt'] }}">
+                <span id="{{ p['_id'] }}">
+                    <i class="glyphicon glyphicon-plus-sign purple"></i> {{ p['name'] }}
+                </span>
+                <a></a><i class="fa fa-yelp purple"></i>
+                {% if 'node' in p %}<ul class="sortable">{% endif %}
+                    {% for c in p['node'] %}
+                        {% if c['nt'] == "child" %}
+                            <li class="parent_li draggable" id="li_{{ c['_id'] }}" style="display: list-item;" st="{{ c['st'] }}" nt="{{ c['nt'] }}">
+                            <span title="Expand this branch" id="{{ c['_id'] }}">
+                                <i class="glyphicon glyphicon-plus-sign purple">
+                                </i> {{ c['name'] }}
+                            </span>
+                            <a></a><i class="fa fa-yelp purple"></i>
+                            {% if 'node' in c %}<ul class="sortable draggable dropable">{% endif %}
+                                {% for l in c['node'] %}
+                                        <li class="parent_li draggable" id="li_{{ l['_id'] }}" style="display: list-item;" st="{{ l['st'] }}" nt="{{ l['nt']  }}">
+                                        <span id="{{ l['_id'] }}" class="leaf-node">
+                                            <i class="glyphicon glyphicon-leaf green">
+                                            </i> {{ l['name'] }}
+                                        </span>
+                                        <a></a><i class="glyphicon glyphicon-edit green"></i>
+                                        {% if 'cases' in l %}<ul class="sortable">{% endif %}
+                                            {% for case in l['cases'] %}
+                                                <li id="case_{{ case['_id'] }}" class="case-node draggable" st="{{ case['st'] }}">
+                                                    <span>{{ case['name'] }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        {% if 'cases' in l %}</ul>{% endif %}
+                                        </li>
+                                {% endfor %}
+                            {% if 'node' in c %}</ul>{% endif %}
+                            </li>
+                        {% endif %}
+                        {% if c['nt'] == "leaf" %}
+                            <li id="li_{{ c['_id'] }}" class="parent_li draggable" style="display: none;" st="{{ c['st'] }}" nt="{{ c['nt'] }}">
+                                <span id="{{ c['_id'] }}" class="leaf-node">
+                                    <i class="glyphicon glyphicon-leaf green"></i> {{ c['name'] }}
+                                </span>
+                                <a></a><i class="glyphicon glyphicon-edit green"></i>
+                                {% if 'cases' in c %}<ul class="sortable">{% endif %}
+                                    {% for case in c['cases'] %}
+                                        <li id="case_{{ case['_id'] }}" class="case-node draggable" st="{{ case['st'] }}">
+                                            <span>{{ case['name'] }}</span>
+                                        </li>
+                                    {% endfor %}
+                                {% if 'cases' in c %}</ul>{% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% if 'node' in p %}</ul>{% endif %}
+            </li>
+        {% endif %}
+        {% if p['nt'] == "leaf" %}
+            <li id="li_{{ p['_id'] }}" class="parent_li draggable" st="{{ p['st'] }}" nt="{{ p['nt'] }}">
+                <span id="{{ p['_id'] }}" class="leaf-node">
+                    <i class="glyphicon glyphicon-leaf green"></i> {{ p['name'] }}
+                </span>
+                <a></a><i class="glyphicon glyphicon-edit green"></i>
+                {% if 'cases' in p %}<ul class="sortable">{% endif %}
+                    {% for case in p['cases'] %}
+                        <li id="case_{{ case['_id'] }}" class="case-node draggable" st="{{ case['st'] }}">
+                            <span>{{ case['name'] }}</span>
+                        </li>
+                    {% endfor %}
+                {% if 'cases' in p %}</ul>{% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+</div>

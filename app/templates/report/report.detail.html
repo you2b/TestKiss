@@ -1,0 +1,308 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}
+测试报告详情
+{% endblock %}
+
+{% block css %}
+    {% include 'common/dashboard.css.html' %}
+    {% include 'report/common/report.detail.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile overflow_hidden">
+                <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-4 col-xs-12">
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <h1><i class="fa fa-newspaper-o green"></i> {{ product['name'] }}<span style="color: skyblue"> {{ plan['pd_ver'] }}</span></h1>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                            </div>
+                        </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                        <table class="" style="width:100%">
+                            <tr>
+                                <th style="width:37%;">
+                                    <p>执行分布</p>
+                                </th>
+                                <th>
+                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                        <p class="">类型</p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <p class="">比例</p>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
+                                </td>
+                                <td>
+                                    <table class="tile_info">
+                                        <tr class="run_init">
+                                            <td>
+                                                <p><i class="fa fa-square blue"></i>初始</p>
+                                            </td>
+                                            <td>{{ pct[0] }}%</td>
+                                        </tr>
+                                        <tr class="run_pass">
+                                            <td>
+                                                <p><i class="fa fa-square green"></i>通过 </p>
+                                            </td>
+                                            <td>{{ pct[1] }}%</td>
+                                        </tr>
+                                        <tr class="run_abort">
+                                            <td>
+                                                <p><i class="fa fa-square dark"></i>废弃 </p>
+                                            </td>
+                                            <td>{{ pct[3] }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="run_stop">
+                                                <p><i class="fa fa-square" style="color:orange;"></i>暂停 </p>
+                                            </td>
+                                            <td>{{ pct[4] }}%</td>
+                                        </tr>
+                                        <tr class="run_fail">
+                                            <td>
+                                                <p><i class="fa fa-square red"></i>失败 </p>
+                                            </td>
+                                            <td>{{ pct[2] }}%</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div class="col-sm-12" style="margin:0px 50px 10px;">
+                         <div class="invoice-header">
+                          <h2 align="center">
+                              执行名称:<strong style="color: skyblue">{{ run['name'] }}</strong>
+                                          <small class="pull-right" style="margin-right: 50px">日期: {{ run['end_time']|unix_2_time('%Y-%m-%d') }}</small>
+                                      </h2>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          <strong>【计划信息】</strong>
+                          <address>
+                                          <br>版本:{{ product['name'] }} {{ plan['pd_ver'] }}
+                                          <br>测试计划: {{ plan['name'] }}
+                                          <br>owner: {{ product['owner'] }}
+                                          <br>创建时间: {{ plan['create_time']|unix_2_time }}
+                                      </address>
+                        </div>
+                            <div class="col-sm-4 invoice-col">
+                          <strong>【执行信息】</strong>
+                          <address>
+                                          <br>执行者: {{ run['assign'] }}
+                                          <br>开始时间: {{ run['start_time']|unix_2_time }}
+                                          <br>结束时间: {{ run['end_time']|unix_2_time }}
+                                      </address>
+                        </div>
+                            <div class="col-sm-4 invoice-col">
+                          <strong>【执行统计】</strong>
+                          <address>
+                                          <br>总数: {{ run['progress']['total']['count'] }} 初始: {{ run['progress']['init']['count'] }}
+                                          <br>通过: {{ run['progress']['pass']['count'] }} 失败: {{ run['progress']['fail']['count'] }}
+                                          <br>暂停: {{ run['progress']['stop']['count'] }} 废弃: {{ run['progress']['abort']['count'] }}
+                                      </address>
+                        </div>
+                      </div>
+
+                    </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">ID</th>
+                                        <th class="column-title">用例名称</th>
+                                        <th class="column-title">类型</th>
+                                        <th class="column-title">状态</th>
+                                        <th class="column-title">优先级</th>
+                                        <th class="column-title">作者</th>
+                                        <th class="column-title">标签</th>
+                                        <th class="column-title center" align="center" colspan="2">执行结果</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="case_result">
+                                {% for p in modules %}
+                                    {% if p['nt'] == 'leaf' %}
+                                        {% if 'cases' in p %}
+                                            {% for case in p['cases'] %}{% set cs=run['detail'][case["_id"]|string]%}
+                                                <tr class="even pointer selected li_{{ p['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                    <td class=" ">{{ case['_id'] }}</td>
+                                                    <td class=" ">{{ case['name'] }}</td>
+                                                    <td class=" ">{{ case['type'] }}</td>
+                                                    <td class=" ">{{ case['stat'] }}</td>
+                                                    <td class=" ">{{ case['p'] }}</td>
+                                                    <td class=" ">{{ case['author'] }}</td>
+                                                    <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                    <td class="" colspan="2"><span class="label case-status {% if  cs['stat'] == 'init' %}label-info{% elif cs['stat'] == 'stop' %}label-warning{% elif cs['stat'] == 'abort' %}label-default{% elif cs['stat'] == 'fail' %}label-danger{% else %}label-success{% endif %}">
+                                                        {% if  cs['stat'] == 'init' %}初始{% elif cs['stat'] == 'stop' %}暂停{% elif cs['stat'] == 'abort' %}废弃{% elif cs['stat'] == 'fail' %}失败{% else %}通过{% endif %}
+                                                    </span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="li_{{ p['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                    <td colspan="9">
+                                                        <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12 run-padding">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['step']|safe }}</div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['expect']|safe }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if p['nt'] == 'child' %}
+                                        {% if 'node' in p %}
+                                            {% for l in p['node'] %}
+                                                {% if 'cases' in l %}
+                                                    {% for case in l['cases'] %}{% set cs=run['detail'][case["_id"]|string]%}
+                                                        <tr class="even pointer selected li_{{ p['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                            <td class=" ">{{ case['_id'] }}</td>
+                                                            <td class=" ">{{ case['name'] }}</td>
+                                                            <td class=" ">{{ case['type'] }}</td>
+                                                            <td class=" ">{{ case['stat'] }}</td>
+                                                            <td class=" ">{{ case['p'] }}</td>
+                                                            <td class=" ">{{ case['author'] }}</td>
+                                                            <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                            <td class="" colspan="2"><span class="label case-status {% if  cs['stat'] == 'init' %}label-info{% elif cs['stat'] == 'stop' %}label-warning{% elif cs['stat'] == 'abort' %}label-default{% elif cs['stat'] == 'fail' %}label-danger{% else %}label-success{% endif %}">
+                                                                {% if  cs['stat'] == 'init' %}初始{% elif cs['stat'] == 'stop' %}暂停{% elif cs['stat'] == 'abort' %}废弃{% elif cs['stat'] == 'fail' %}失败{% else %}通过{% endif %}
+                                                            </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="li_{{ p['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                            <td colspan="9">
+                                                                <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12 run-padding">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                        <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['step']|safe }}</div>
+                                                                        <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['expect']|safe }}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if p['nt'] == 'parent' %}
+                                        {% if 'node' in p %}
+                                            {% for c in p['node'] %}
+                                                {% if c['nt'] == "leaf" %}
+                                                    {% if 'cases' in c %}
+                                                        {% for case in c['cases'] %}{% set cs=run['detail'][case["_id"]|string]%}
+                                                            <tr class="even pointer selected li_{{ p['_id'] }} li_{{ c['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                                <td class=" ">{{ case['_id'] }}</td>
+                                                                <td class=" ">{{ p['name'] }}>{{ c['name'] }}>{{ case['name'] }}</td>
+                                                                <td class=" ">{{ case['type'] }}</td>
+                                                                <td class=" ">{{ case['stat'] }}</td>
+                                                                <td class=" ">{{ case['p'] }}</td>
+                                                                <td class=" ">{{ case['author'] }}</td>
+                                                                <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                                <td class="" colspan="2"><span class="label case-status {% if  cs['stat'] == 'init' %}label-info{% elif cs['stat'] == 'stop' %}label-warning{% elif cs['stat'] == 'abort' %}label-default{% elif cs['stat'] == 'fail' %}label-danger{% else %}label-success{% endif %}">
+                                                                    {% if  cs['stat'] == 'init' %}初始{% elif cs['stat'] == 'stop' %}暂停{% elif cs['stat'] == 'abort' %}废弃{% elif cs['stat'] == 'fail' %}失败{% else %}通过{% endif %}
+                                                                </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="li_{{ p['_id'] }} li_{{ c['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                                <td colspan="9">
+                                                                    <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12 run-padding">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                            <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['step']|safe }}</div>
+                                                                            <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['expect']|safe }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endif %}
+                                                {% if c['nt'] == 'child' %}
+                                                    {% if 'node' in c %}
+                                                        {% for l in c['node'] %}
+                                                            {% if 'cases' in l %}
+                                                                {% for case in l['cases'] %}{% set cs=run['detail'][case["_id"]|string]%}
+                                                                    <tr class="even pointer selected li_{{ p['_id'] }} li_{{ c['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                                        <td class=" ">{{ case['_id'] }}</td>
+                                                                        <td class=" ">{{ p['name'] }}>{{ c['name'] }}>{{ l['name'] }}>{{ case['name'] }}</td>
+                                                                        <td class=" ">{{ case['type'] }}</td>
+                                                                        <td class=" ">{{ case['stat'] }}</td>
+                                                                        <td class=" ">{{ case['p'] }}</td>
+                                                                        <td class=" ">{{ case['author'] }}</td>
+                                                                        <td class=" ">{% for tag in case['tags'] %}<span class="label label-success">{{ tag }}</span>&nbsp;{% endfor %}</td>
+                                                                        <td class="" colspan="2"><span class="label case-status {% if  cs['stat'] == 'init' %}label-info{% elif cs['stat'] == 'stop' %}label-warning{% elif cs['stat'] == 'abort' %}label-default{% elif cs['stat'] == 'fail' %}label-danger{% else %}label-success{% endif %}">
+                                                                            {% if  cs['stat'] == 'init' %}初始{% elif cs['stat'] == 'stop' %}暂停{% elif cs['stat'] == 'abort' %}废弃{% elif cs['stat'] == 'fail' %}失败{% else %}通过{% endif %}
+                                                                        </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="li_{{ p['_id'] }} li_{{ c['_id'] }} li_{{ l['_id'] }} case_{{ case['_id'] }} {% if  cs['stat'] == 'init' %}res_init{% elif cs['stat'] == 'stop' %}res_stop{% elif cs['stat'] == 'abort' %}res_abort{% elif cs['stat'] == 'fail' %}res_fail{% else %}res_pass{% endif %}">
+                                                                        <td colspan="9">
+                                                                            <div title="{{ case['_id'] }}" class="col-md-12 col-sm-12 col-xs-12 run-padding">
+                                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                    <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['step']|safe }}</div>
+                                                                                    <div class="col-md-6 col-sm-6 col-xs-12 tree-line case-editor" >{{ case['expect']|safe }}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'report/common/report.detail.js.html' %}
+{% endblock %}

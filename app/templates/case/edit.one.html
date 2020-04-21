@@ -1,0 +1,166 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+dashboard
+{% endblock %}
+
+{% block css %}
+    {% include 'case/common/edit.case.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-4 col-xs-12">
+                                <h2>编辑单个用例<small></small></h2>
+                            </div>
+                            <div class="col-md-7 col-xs-12">
+                                <h2><span class="module-parent" style="color:deepskyblue;"></span><span id="success_msg" class="green"></span></h2>
+                            </div>
+                            <div class="col-md-1 col-xs-12">
+                                <a class="btn btn-primary" href="{{ url_for('case.lists', product_id=cs['pd']) }}">返回列表</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left">
+                        <div hidden><input id="case_id" value="{{ cs['_id'] }}"></div>
+                            <div class="col-md-12 col-xs-12" style="margin-top: 8px">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">用例名称*</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" style="display: block">
+                                            <input id="case_name" type="text" value="{{ cs['name'] }}" class="form-control" placeholder="测试用例名称">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">请选择类型*</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select id="case_type" class="select2_single form-control" tabindex="-1">
+                                                <option {% if cs['type'] == "功能" %}selected{% endif %} value="功能">功能</option>
+                                                <option {% if cs['type'] == "性能" %}selected{% endif %} value="性能">性能</option>
+                                                <option {% if cs['type'] == "接口" %}selected{% endif %} value="接口">接口</option>
+                                                <option {% if cs['type'] == "自动化" %}selected{% endif %} value="自动化">自动化</option>
+                                                <option {% if cs['type'] == "安全" %}selected{% endif %} value="安全">安全</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">请选择优先级</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select id="case_priority" class="select2_single form-control" tabindex="-1">
+                                                <option {% if cs['p'] == "0" %}selected{% endif %}value="0">优先级</option>
+                                                <option {% if cs['p'] == 'P0' %}selected{% endif %} value="P0">P0</option>
+                                                <option {% if cs['p'] == "P1" %}selected{% endif %} value="P1">P1</option>
+                                                <option {% if cs['p'] == "P2" %}selected{% endif %} value="P2">P2</option>
+                                                <option {% if cs['p'] == "P3" %}selected{% endif %} value="P3">P3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="edit-tags" class="col-md-6 col-xs-12">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">老标签:</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" style="display: block">
+                                            <div>
+                                            {% for tag in cs['tags'] %}
+                                                <span class="tag"><span>{{ tag }}&nbsp;&nbsp;</span><a href="#" title="Removing tag">x</a></span>
+                                            {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">新增标签:</label>
+                                        <div id="case_tags" class="col-md-9 col-sm-9 col-xs-12">
+                                            <input id="tags_1" type="text" class="tags form-control" value="" />
+                                            <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2>测试步骤<small>*必填*</small></h2>
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <div id="alerts"></div>
+                                                <div id="editor-one" class="editor-wrapper" contenteditable="true">
+                                                    {{ cs['step']|safe }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2>预期结果<small>*必填*</small></h2>
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <div id="alerts"></div>
+                                                <div id="editor-two" class="editor-wrapper" contenteditable="true">
+                                                    {{ cs['expect']|safe }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                            <a class="btn btn-primary" href="{{ url_for('case.lists', product_id=cs['pd']) }}">取消</a>
+                                            <a id="update_case" class="btn btn-success">更新</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'case/common/menu.modal.html' %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'case/common/edit.one.js.html' %}
+{% endblock %}

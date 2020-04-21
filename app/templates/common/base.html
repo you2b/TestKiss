@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/ico" />
+
+        <title> WayzQA | {% block title %}{% endblock %}</title>
+        {% block css %}{% endblock %}
+        {% include "common/notify.css.html" %}
+    </head>
+    <body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="{{ url_for('home.dashboard') }}" class="site_title"><i class="fa fa-paw"></i> <span>TestKiss!</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <!-- menu profile quick info -->
+                    {% block quick_info %}{% endblock %}
+                    <!-- /menu profile quick info -->
+                    <br />
+
+                    <!-- sidebar menu -->
+                    {% block sidebar %}{% endblock %}
+                    <!-- /sidebar menu -->
+
+                    <!-- /menu footer buttons -->
+                    {% block menu_footer %}{% endblock %}
+                    <!-- /menu footer buttons -->
+                </div>
+
+            </div>
+                <!-- top navigation -->
+                {% block top_nav %}{% endblock %}
+                <!-- /top navigation -->
+
+                <!-- page content -->
+                {% block page_content %}{% endblock %}
+                <!-- /page content -->
+
+                <!-- footer content -->
+                {% block footer %}
+                {% endblock %}
+                <!-- /footer content -->
+            </div>
+        </div>
+        <script type="text/javascript">
+            let csrf_token = "{{ csrf_token() }}";
+        </script>
+        {% block js %}{% endblock %}
+        {% include "common/notify.js.html" %}
+        <script src="{{url_for('static', filename='wayz/js/common.js')}}"></script>
+  </body>
+</html>

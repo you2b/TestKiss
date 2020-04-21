@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>产品发布平台</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../bootstrap-table/bootstrap-table.css">
+</head>
+
+<body>
+    <nav class="navbar header navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle user-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-circle" src="../../../images/profile.png">
+                        <label style="margin-left: 10px">admin</label>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a href="#">注销</a></li>
+                  </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid body-content">
+        <div class="wrapper" id="wrapper">
+            <div class="left left-col">
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn portal-btn portal-btn-active">
+                    portal
+                </button>
+                <button type="button" class="btn list-btn">
+                    产品列表页
+                </button>
+                <button type="button" class="btn admin-btn">
+                    admin
+                </button>
+                </div>
+            </div>
+            <div class="right right-col">
+                <div class="catalog">
+                    <div class="product-row">
+                        <span class="product-label">产品类型</span>
+                        <div class="product-label-row">
+                            <button class="btn btn-round btn-label" type="button">
+                                <label class="text-center label-label">DEMO</label>
+                                <span class="badge icon-checked hidden">✔</span>
+                            </button>
+                            <button class="btn btn-round btn-round-checked btn-label" type="button">
+                                <label class="text-center label-label">外部产品</label>
+                                <span class="badge icon-checked">✔</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-row">
+                        <span class="product-label" style="margin-right: 12px;">业务线</span>
+                        <div class="business-label-row">
+                            <button class="btn btn-round btn-label" type="button">
+                                <label class="text-center label-label">DEMO</label>
+                                <span class="badge icon-checked hidden">✔</span>
+                            </button>
+                            <button class="btn btn-round btn-round-checked btn-label" type="button">
+                                <label class="text-center label-label">外部产品</label>
+                                <span class="badge icon-checked">✔</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myCarousel" class="carousel slide row-magin-vertical" style="height:440px; ">
+                    <div class="carousel-inner hidden">
+                    </div>
+                    <div class="product-content carousel-empty" style="height: 100%;">
+                        <img class="center-block" style="margin-top: 170px;" src="../../../images/carousel_empty.png"/>
+                    </div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <a id="left-arrow" class="left carousel-control hidden" href="#myCarousel" role="button" data-slide="prev">
+                        <img class="icon-arrow-left" aria-hidden="true" src="../../../images/carousel_left.png"/>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a id="right-arrow" class="right carousel-control hidden" href="#myCarousel" role="button" data-slide="next">
+                        <img class="icon-arrow-right" aria-hidden="true" src="../../../images/carousel_right.png"/>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+                <h3 class="row-magin-vertical">发版统计</h3>
+                <div class="row">
+                    <div class="col-md-4 col-xs-4">
+                        <div class="product-content text-center">
+                            <p class="product-title">本周</p>
+                            <p class="number-font week-number">0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <div class="product-content text-center">
+                            <p class="product-title">本月</p>
+                            <p class="number-font month-number">0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <div class="product-content text-center">
+                            <p class="product-title">累计</p>
+                            <p class="number-font total-number">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="row-magin-vertical">最近发版记录</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versionTable" data-toggle="table"
+                               data-url="http://products.newayz.com/api/versions"
+                               data-query-params="queryParams"
+                               data-pagination="true"
+                               data-height="500">
+                            <thead>
+                            <tr>
+                                <th data-field="name">产品名称</th>
+                                <th data-field="version_num">版本号</th>
+                                <th data-field="publish_time">发布时间</th>
+                                <th data-field="id" data-formatter="operateFormatter">更多</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="../../jquery/jquery-1.12.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../../bootstrap-table/bootstrap-table.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="../../bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../../../js/potal.js"></script>
+<script type="text/javascript">
+    function operateFormatter(value, row, index) {
+        return [
+            '<div class="pull-left">',
+                '<a class="detail" href="javascript:void(0)" title="查看">',
+                    '<i class="glyphicon glyphicon-eye-open" style="margin-right:5px;"></i>查看',
+                '</a>  ',
+            '</div>',
+            '<div class="pull-right">',
+                '<a style="visibility:hidden" class="like" href="javascript:void(0)" title="查看">',
+                    '<i class="glyphicon glyphicon-eye-open"></i>',
+                '</a>  ',
+            '</div>',
+        ].join('');
+    }
+
+    function queryParams() {
+        return {
+            pageNum: 10,
+            page: 1
+        };
+    }
+</script>
+
+</body>
+</html>

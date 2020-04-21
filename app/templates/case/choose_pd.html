@@ -1,0 +1,83 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}
+dashboard
+{% endblock %}
+
+{% block css %}
+    {% include 'case/common/choose_pd.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>【测试用例】选择产品</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <form action="{{ url_for("case.dashboard") }}">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="模糊搜索产品名称">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">搜索</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="">
+                    <div class="x_content">
+                        <div class="row">
+                            {% for pd in products['data'] %}
+                                <a href="{{ url_for('case.lists', product_id=pd['_id']) }}">
+                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="tile-stats">
+                                        <div class="icon"><i class="fa fa-edit blue"></i>
+                                        </div>
+                                        <div class="count">NO.{{ pd['_id'] }}</div>
+                                        <h3>{{ pd['name'] }}</h3>
+                                        <p>{{ pd['desc'] }}</p>
+                                    </div>
+                                </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                        {{ pg.paginate(data=products, url=url, params=params) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'case/common/choose_pd.js.html' %}
+{% endblock %}

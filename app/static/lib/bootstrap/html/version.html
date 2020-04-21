@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>产品发布平台</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../bootstrp-table/bootstrap-table.css">
+    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+</head>
+
+<body>
+    <nav class="navbar header navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle user-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-circle" src="../../../images/profile.png">
+                        <label style="margin-left: 10px">admin</label>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a href="#">注销</a></li>
+                  </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid body-content">
+        <div class="wrapper" id="wrapper">
+            <div class="left left-col">
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                    <button type="button" class="btn portal-btn portal-btn-active">
+                        portal
+                    </button>
+                    <button type="button" class="btn list-btn">
+                        产品列表页
+                    </button>
+                    <button type="button" class="btn admin-btn">
+                        admin
+                    </button>
+                </div>
+            </div>
+            <div class="right right-col">
+                <span style="margin-left: -15px;"><a id="nav-link" class="btn product-detail" role="button" href="">产品列表页</a><span class="">&nbsp;&gt;&nbsp;版本详情页</span></span>
+                <H2 style="margin-left: -15px;">Android SDK</H2>
+                <div class="row" style="">
+                    <button id="edit-btn" style="margin-left: 0px;" class="btn list-btn text-center" type="button">
+                        <img src="../../../images/edit_icon.png"/>
+                        <label class="text-center">编辑</label>
+                    </button>
+                    <button id="save-btn" style="margin-left: 0px;"  class="btn list-btn text-center hidden" type="button">
+                        <img src="../../../images/save_icon.png"/>
+                        <label class="text-center">保存</label>
+                    </button>
+                    <button id="back-btn" style="background-color: #D12A2A;" class="btn list-btn text-center hidden" type="button">
+                        <img src="../../../images/back_icon.png"/>
+                        <label class="text-center">放弃</label>
+                    </button>
+                </div>
+
+                <div class="row" style="margin-top: -90px;">
+                    <textarea style="width: 100%; padding:10px; resize:none;" class="" id="descTextarea" rows="5" readonly="readonly" placeholder="暂无产品介绍"></textarea>
+                </div>
+
+                <div id="site-row" class="row " style="margin-top: 5px;" >
+                    <label style="margin-right: 5px;">产品网址:</label><a href="" target="view_window" class="btn product-detail" role="button"></a>
+                </div>
+                <div id="prodoc-row" class="row" style="margin-top: 5px;">
+                    <label style="margin-right: 5px;">产品文档:</label><a href="" target="view_window" class="btn product-detail" role="button"></a>
+                </div>
+                <div id="busdoc-row" class="row" style="margin-top: 5px;">
+                    <label style="margin-right: 5px;">商务网址:</label><a href="" target="view_window" class="btn product-detail" role="button"></a>
+                </div>
+
+                <div class="row" style="margin-top: 20px;">
+                    <div id="start-time-label" class="time-label text-center pull-left">< 2017.9</div>
+                    <div id="end-time-label" class="time-label text-center pull-right">2018.9 ></div>
+                    <ul class="time-horizontal" style="margin-top:15px; margin-left:100px;margin-right:100px;">
+                    </ul>
+                </div>
+
+                <div class="row" style="margin-top: 20px;">
+                    <button id="add-btn" class="btn list-btn text-center" style="margin-left: 0px;"  type="button" data-toggle="modal" data-target="#addModal">
+                        <img src="../../../images/add_icon.png"/>
+                        <label class="text-center">新增版本</label>
+                    </button>
+                    <button id="edit-btn" class="btn list-btn text-center" type="button" data-toggle="modal" data-target="#addModal">
+                        <img src="../../../images/edit_icon.png"/>
+                        <label class="text-center">修改当前版本</label>
+                    </button>
+                </div>
+
+                <div class="row" style="margin-top: 15px;">
+                    <table class="table table-bordered" style="">
+                      <tr>
+                          <td class="col-md-2">版本号</td>
+                          <td id="num-td" class="col-md-9"></td>
+                      </tr>
+                      <tr>
+                          <td class="col-md-3">发布时间</td>
+                          <td id="publish-td" class="col-md-9"></td>
+                      </tr>
+                      <tr>
+                          <td class="col-md-3">产品owner</td>
+                          <td id="owner-td" class="col-md-9"></td>
+                      </tr>
+                      <tr>
+                          <td class="col-md-3">下载地址</td>
+                          <td id="download-td" class="col-md-9"></td>
+                      </tr>
+                      <tr>
+                          <td class="col-md-3">版本说明</td>
+                          <td id="desc-td" class="col-md-9"></td>
+                      </tr>
+                    </table>
+                </div>
+
+                <div class="modal fade" id="addModal" style="padding: 40px;" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                <h4 class="modal-title" id="addModalLabel">新增</h4>
+                            </div>
+                            <div id="modal-body-content" class="modal-body">
+                                <form>
+                                    <input type="text" class="form-control hidden" id="form-id"/>
+                                    <div class="form-group">
+                                        <label for="form-num">版本号</label>
+                                        <input type="text" class="form-control" id="form-num" placeholder="请输入版本号"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>发布时间</label>
+                                        <input type="text" id="form-publish" value="" readonly class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-owner">产品owner</label>
+                                        <input type="text" class="form-control" id="form-owner" placeholder="请输入产品owner"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-download">下载地址</label>
+                                        <input type="url" class="form-control" id="form-download" placeholder="超链接，可以是官网/后台登陆地址等"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-desc">版本说明</label>
+                                        <textarea style="width: 100%; padding:10px; resize:none;" class="" id="form-desc" rows="3" placeholder="请输入版本说明"></textarea>
+                                    </div>
+                                </form>
+                                <div class="alert alert-danger" id="error-msg" role="alert">asdasdasdasdsadasdsa</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" id="save-version-btn" class="btn btn-info">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="../../jquery/jquery-1.12.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../../bootstrp-table/bootstrap-table.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="../../bootstrp-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../js/bootstrap-datetimepicker.min.js"></script>
+<script src="../js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="../../../js/version.js"></script>
+<script type="text/javascript">
+    $("#form-publish").datetimepicker({
+         format: 'yyyy-mm-dd hh:ii',
+         pickerPosition: "bottom-left"
+     });
+</script>
+
+</body>
+</html>

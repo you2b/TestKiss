@@ -1,0 +1,127 @@
+{% import "common/paginate.html" as pg %}
+{% extends 'common/base.html' %}
+
+{% block title %}
+产品分类列表
+{% endblock %}
+
+{% block css %}
+    {% include 'product/common/common.css.html' %}
+{% endblock %}
+
+{% block quick_info %}
+    {% include 'common/quick_info.html' %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'common/dashboard.sidebar.html' %}
+{% endblock %}
+
+{% block menu_footer %}
+    {% include 'common/menu_footer.html' %}
+{% endblock %}
+
+{% block top_nav %}
+    {% include 'common/top_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="clearfix"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-5 col-xs-12">
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <h2><span style="color:deepskyblue;">产品分类列表</span></h2>
+                            </div>
+                            <div class="col-md-1 col-xs-12">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-add-modal-sm">添加分类</button>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th>
+                                        <input type="checkbox" id="check-all" class="flat">
+                                    </th>
+                                    <th class="column-title">ID</th>
+                                    <th class="column-title">名称</th>
+                                    <th class="column-title">描述 </th>
+                                    <th class="column-title">创建时间</th>
+                                    <th class="column-title">更新时间 </th>
+                                    <th class="column-title no-link last" colspan="2"><span class="nobr">操作</span></th>
+                                    <th class="bulk-actions" colspan="7">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for pc in categories['data'] %}
+                                    {% if pc['_id']|is_odd %}
+                                        <tr class="even pointer">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records">
+                                            </td>
+                                            <td class=" ">{{ pc['_id'] }}</td>
+                                            <td class=" ">{{ pc['name'] }}</td>
+                                            <td class=" ">{{ pc['desc'] }}</td>
+                                            <td class=" ">{{ pc['create_time']|unix_2_time }}</td>
+                                            <td class=" ">{{ pc['update_time']|unix_2_time }}</td>
+                                            <td class="last" colspan="2">
+                                                <button value="{{ pc['_id'] }}" class="label label-warning update-pc" data-toggle="modal" data-target=".bs-edit-modal-sm">编辑</button>
+                                                <button value="{{ pc['_id'] }}" class="label label-danger delete-pc" data-toggle="modal" data-target=".bs-delete-modal-sm">删除</button>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr class="odd pointer">
+                                            <td class="a-center ">
+                                                <input type="checkbox" class="flat" name="table_records">
+                                            </td>
+                                            <td class=" ">{{ pc['_id'] }}</td>
+                                            <td class=" ">{{ pc['name'] }}</td>
+                                            <td class=" ">{{ pc['desc'] }}</td>
+                                            <td class=" ">{{ pc['create_time']|unix_2_time }}</td>
+                                            <td class=" ">{{ pc['update_time']|unix_2_time }}</td>
+                                            <td class="last" colspan="2">
+                                                <button value="{{ pc['_id'] }}" class="label label-warning update-pc" data-toggle="modal" data-target=".bs-edit-modal-sm">编辑</button>
+                                                <button value="{{ pc['_id'] }}" class="label label-danger delete-pc" data-toggle="modal" data-target=".bs-delete-modal-sm">删除</button>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {{ pg.paginate(data=categories, url=url) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'product/common/category.modal.html' %}
+    {% include 'common/footer.html' %}
+{% endblock %}
+
+{% block js %}
+    {% include 'product/common/common.js.html' %}
+    <script src="{{ url_for('static', filename='wayz/js/product.category.js')}}"></script>
+
+{% endblock %}

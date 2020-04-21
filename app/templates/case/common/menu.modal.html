@@ -1,0 +1,81 @@
+<div class="modal fade bs-parent-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel2">新增产品模块</h4>
+        </div>
+        <div class="modal-body">
+            <h4><span id="pc_msg"></span></h4>
+            <form class="form-horizontal form-label-left input_mask">
+                  <div class="form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="col-md-12 col-sm-12 col-xs-12">
+                            <input  checked="true" type="radio" value="parent" id="tpye1" name="TopType"><span data-toggle="tooltip" data-placement="top" title="" data-original-title="父节点:可添加子节点和叶子节点">&nbsp;<i class="glyphicon glyphicon-folder-open blue"></i>&nbsp;父模块 (可添加子模块和用例模块)</span>
+                        </label>
+                        <label class="col-md-12 col-sm-12 col-xs-12">
+                              <input type="radio" value="child" id="type2" name="TopType"><span data-toggle="tooltip" data-placement="top" title="" data-original-title="子节点:可添加叶子节点">&nbsp;<i class="glyphicon purple glyphicon-plus-sign"></i>&nbsp;子模块 (可添加用例模块)</span>
+                        </label>
+                        <label class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="radio" value="leaf" id="type3" name="TopType"><span data-toggle="tooltip" data-placement="top" title="" data-original-title="叶子节点:可添加用例">&nbsp;<i class="glyphicon glyphicon-leaf green"></i>&nbsp;用例模块 (可添加用例)</span>
+                        </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">模块名:</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="top_md_name" name="desc" type="text" class="form-control" placeholder="产品模块名称">
+                    </div>
+                  </div>
+                </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default cancel_modal" data-dismiss="modal">取消</button>
+          <button id="add-top-node" type="button" class="btn btn-primary">添加</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade bs-child-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel2">新增产品模块</h4>
+        </div>
+        <div class="modal-body">
+            <h4><span id="pc_msg"></span></h4>
+            <form class="form-horizontal form-label-left input_mask">
+                <div hidden><input id="child_pid" hidden></div>
+                  <div class="form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="col-md-4 col-sm-4 col-xs-12">
+                        </label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">
+                              <input type="radio" value="child" name="ChildType"><span data-toggle="tooltip" data-placement="top" title="" data-original-title="子节点:可添加叶子节点">&nbsp;<i class="glyphicon purple glyphicon-plus-sign"></i>&nbsp;子</span>
+                        </label>
+                        <label class="col-md-4 col-sm-4 col-xs-12">
+                            <input type="radio" checked="true" value="leaf" name="ChildType"><span data-toggle="tooltip" data-placement="top" title="" data-original-title="叶子节点:可添加用例">&nbsp;<i class="glyphicon glyphicon-leaf green"></i>&nbsp;叶</span>
+                        </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">模块:</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="child_md_name" name="desc" type="text" class="form-control" placeholder="产品模块名称">
+                    </div>
+                  </div>
+                </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default cancel_modal" data-dismiss="modal">取消</button>
+          <button id="add-child-node" type="button" class="btn btn-warning">添加</button>
+        </div>
+      </div>
+    </div>
+</div>
